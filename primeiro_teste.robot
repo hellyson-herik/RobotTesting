@@ -1,25 +1,41 @@
 *** Settings ***
 Library     SeleniumLibrary
 
+*** Variables ***
+${CAMPO_NOME}        form-nome
+${CAMPO_CARGO}       form-cargo
+${CAMPO_IMAGEM}      form-imagem
+${CAMPO_TIME}        class:lista-suspensa
+${CAMPO_CARD}        form-botao
+${PROGRAMACAO}       //option[contains(., 'Programação')]
+${FRONT-END}         //option[contains(., 'Front-End')]
+${DADOS}             //option[contains(., 'Dados')]
+${DEVOPS}            //option[contains(., 'Devops')]
+${UX}                //option[contains(., 'UX e Design')]
+${MOBILE}            //option[contains(., 'Mobile')]
+${INOVACAO}          //option[contains(., 'Inovação')]
+
+*** Keywords ***
+Dado que eu acesse o Organo
+    open browser    url=http://localhost:3000/      browser=Chrome
+
+Quando eu preencher os formularios
+    input text      ${CAMPO_NOME}        TestNome
+    input text      ${CAMPO_CARGO}       TestCargo
+    input text      ${CAMPO_IMAGEM}      https://picsum.photos/200/300
+    click element   ${CAMPO_TIME}
+    click element   ${PROGRAMACAO}
+
+
+E clique no botão criar card
+    click element   ${CAMPO_CARD}
+
+Então o card deve ser adicionado no time esperado
+    element should be visible   class:colaborador
 
 *** Test Cases ***
 Abrir navegador, preencher formulario e criar card
-    Abrir navegador e acessar o site do organo
-    Preencher os campos do formulario
-    Verificar se foi acrescentado no card
-    sleep  2
-
-*** Keywords ***
-Abrir navegador e acessar o site do organo
-    open browser    url=http://localhost:3000/      browser=Chrome
-
-Preencher os campos do formulario
-    input text      form-nome                       TestNome
-    input text      form-cargo                      TestCargo
-    input text      form-imagem                     https://picsum.photos/200/300
-    click element   class:lista-suspensa
-    click element   //option[contains(., 'Programação')]
-    click element   form-botao
-
-Verificar se foi acrescentado no card
-    element should be visible   class:colaborador
+    Dado que eu acesse o Organo
+    Quando eu preencher os formularios
+    E clique no botão criar card
+    Então o card deve ser adicionado no time esperado
