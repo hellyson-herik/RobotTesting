@@ -1,6 +1,6 @@
 *** Settings ***
 Library     SeleniumLibrary
-
+Test Setup
 *** Variables ***
 ${CAMPO_NOME}        form-nome
 ${CAMPO_CARGO}       form-cargo
