@@ -1,6 +1,9 @@
 *** Settings ***
-Library     SeleniumLibrary
-Test Setup
+Library             SeleniumLibrary
+Test Setup          Dado que eu acesse o Organo
+Test Teardown       Fechar o navegador
+
+
 *** Variables ***
 ${CAMPO_NOME}        form-nome
 ${CAMPO_CARGO}       form-cargo
@@ -32,6 +35,8 @@ E clique no botão criar card
 
 Então o card deve ser adicionado no time esperado
     element should be visible   class:colaborador
+
+Fechar o navegador
 
 *** Test Cases ***
 Abrir navegador, preencher formulario e criar card
